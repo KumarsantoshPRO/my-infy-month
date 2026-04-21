@@ -1,0 +1,2 @@
+sap.ui.define(["com/infosys/mymonth/controller/Main.controller"],function(n){"use strict";function t(n){return n&&n.__esModule&&typeof n.default!=="undefined"?n.default:n}const o=t(n);QUnit.module("Main Controller");QUnit.test("I should test the Main controller",function(n){const t=new o("Main");t.onInit();n.ok(t)})});
+//# sourceMappingURL=MainPage.controller.js.map

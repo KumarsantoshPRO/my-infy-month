@@ -1,0 +1,189 @@
+<mvc:View
+    controllerName="com.infosys.mymonth.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:u="sap.ui.unified"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:viz.data="sap.viz.ui5.data"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+    displayBlock="true"
+    xmlns:core="sap.ui.core"
+>
+    <App id="app">
+        <Page
+            title="My Month"
+            titleAlignment="Center"
+        >
+            <headerContent>
+                <MultiComboBox
+                    id="daysSelector"
+                    items="{path: '/configDays'}"
+                    selectionChange=".onSelectionChange"
+                    placeholder="Select Days"
+                    width="50%"
+                >
+                    <core:Item
+                        key="{key}"
+                        text="{text}"
+                    />
+                </MultiComboBox>
+                <Button
+                    icon="sap-icon://reset"
+                    tooltip="Reset to Default"
+                    type="Transparent"
+                    press="onReset"
+                />
+            </headerContent>
+
+            <content>
+                <VBox
+                    alignItems="Center"
+                    class="sapUiSmallMargin"
+                >
+                    <Toolbar style="Clear">
+                        <Title text="WFH Bucket:" />
+                        <Input
+                            id="wfhBucketInput"
+                            value="{/currentWfhBucket}"
+                            type="Number"
+                            width="100px"
+                            placeholder="Qty"
+                            liveChange=".onWfhBucketChange"
+                        />
+                        <ToolbarSpacer />
+                        <Select
+                            id="monthSelector"
+                            items="{/availableMonths}"
+                            change=".onMonthChange"
+                            selectedKey="{/selectedMonthKey}"
+                        >
+                            <core:Item
+                                key="{key}"
+                                text="{text}"
+                            />
+                        </Select>
+                    </Toolbar>
+
+                    <VBox
+                        width="100%"
+                        class="sapUiCard"
+                    >
+                        <u:Calendar
+                            id="workCalendar"
+                            width="100%"
+                            select="handleDaySelect"
+                            startDateChange="handleMonthChange"
+                            specialDates="{path: '/days', templateShareable: false}"
+                            minDate="{/minCalendarDate}"
+                            maxDate="{/maxCalendarDate}"
+                        >
+                            <u:specialDates>
+                                <u:DateTypeRange
+                                    startDate="{path: 'date', formatter: '.formatter.formatDate'}"
+                                    type="{type}"
+                                    tooltip="{status}"
+                                />
+                            </u:specialDates>
+                        </u:Calendar>
+                    </VBox>
+                </VBox>
+
+                <Title
+                    text="Remaining Days Forecast"
+                    titleStyle="H4"
+                    class="sapUiSmallMargin"
+                />
+                <viz:VizFrame
+                    id="idVizFrame"
+                    uiConfig="{applicationSet:'fiori'}"
+                    height='25%'
+                    width="100%"
+                    vizType='column'
+                >
+                    <viz:dataset>
+                        <viz.data:FlattenedDataset data="{/chartData}">
+                            <viz.data:dimensions>
+                                <viz.data:DimensionDefinition
+                                    name="Category"
+                                    value="{category}"
+                                />
+                            </viz.data:dimensions>
+                            <viz.data:measures>
+                                <viz.data:MeasureDefinition
+                                    name="Days"
+                                    value="{value}"
+                                />
+                            </viz.data:measures>
+                        </viz.data:FlattenedDataset>
+                    </viz:dataset>
+                    <viz:feeds>
+                        <viz.feeds:FeedItem
+                            uid="valueAxis"
+                            type="Measure"
+                            values="Days"
+                        />
+                        <viz.feeds:FeedItem
+                            uid="categoryAxis"
+                            type="Dimension"
+                            values="Category"
+                        />
+                    </viz:feeds>
+                </viz:VizFrame>
+                <HBox
+                    justifyContent="Center"
+                    class="sapUiSmallMargin"
+                >
+                    <items>
+                        <ObjectStatus
+                            title="Total WFH"
+                            text="{/summary/wfhTotal}"
+                            state="Success"
+                            class="sapUiMediumMarginEnd"
+                        />
+                        <ObjectStatus
+                            title="Total WFO"
+                            text="{/summary/wfoTotal}"
+                            state="Error"
+                        />
+                    </items>
+                </HBox>
+            </content>
+            <dependents>
+                <Popover
+                    id="statusPopover"
+                    title="Select Status"
+                    placement="Bottom"
+                >
+                    <content>
+                        <List
+                            id="statusList"
+                            itemPress=".onStatusChange"
+                            mode="None"
+                        >
+                            <StandardListItem
+                                title="WFH"
+                                type="Active"
+                                icon="sap-icon://home"
+                            />
+                            <StandardListItem
+                                title="WFO"
+                                type="Active"
+                                icon="sap-icon://building"
+                            />
+                            <StandardListItem
+                                title="Leave"
+                                type="Active"
+                                icon="sap-icon://flight"
+                            />
+                            <StandardListItem
+                                title="Holiday"
+                                type="Active"
+                                icon="sap-icon://umbrella"
+                            />
+                        </List>
+                    </content>
+                </Popover>
+            </dependents>
+        </Page>
+    </App>
+</mvc:View>
