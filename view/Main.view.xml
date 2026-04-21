@@ -13,14 +13,16 @@
         <Page
             title="My Month"
             titleAlignment="Center"
+            enableScrolling="true"
+            class="sapUiContentPadding"
         >
             <headerContent>
                 <MultiComboBox
                     id="daysSelector"
                     items="{path: '/configDays'}"
                     selectionChange=".onSelectionChange"
-                    placeholder="Select Days"
-                    width="50%"
+                    placeholder="Days"
+                    width="120px"
                 >
                     <core:Item
                         key="{key}"
@@ -36,17 +38,15 @@
             </headerContent>
 
             <content>
-                <VBox
-                    alignItems="Center"
-                    class="sapUiSmallMargin"
-                >
-                    <Toolbar style="Clear">
+                <VBox width="100%" alignItems="Stretch">
+                    
+                    <Toolbar style="Clear" class="sapUiTinyMarginBottom">
                         <Title text="WFH Bucket:" />
                         <Input
                             id="wfhBucketInput"
                             value="{/currentWfhBucket}"
                             type="Number"
-                            width="100px"
+                            width="70px"
                             placeholder="Qty"
                             liveChange=".onWfhBucketChange"
                         />
@@ -56,6 +56,7 @@
                             items="{/availableMonths}"
                             change=".onMonthChange"
                             selectedKey="{/selectedMonthKey}"
+                            width="110px"
                         >
                             <core:Item
                                 key="{key}"
@@ -64,10 +65,7 @@
                         </Select>
                     </Toolbar>
 
-                    <VBox
-                        width="100%"
-                        class="sapUiCard"
-                    >
+                    <VBox width="100%" class="sapUiNoContentPadding">
                         <u:Calendar
                             id="workCalendar"
                             width="100%"
@@ -86,68 +84,73 @@
                             </u:specialDates>
                         </u:Calendar>
                     </VBox>
-                </VBox>
 
-                <Title
-                    text="Remaining Days Forecast"
-                    titleStyle="H4"
-                    class="sapUiSmallMargin"
-                />
-                <viz:VizFrame
-                    id="idVizFrame"
-                    uiConfig="{applicationSet:'fiori'}"
-                    height='25%'
-                    width="100%"
-                    vizType='column'
-                >
-                    <viz:dataset>
-                        <viz.data:FlattenedDataset data="{/chartData}">
-                            <viz.data:dimensions>
-                                <viz.data:DimensionDefinition
-                                    name="Category"
-                                    value="{category}"
-                                />
-                            </viz.data:dimensions>
-                            <viz.data:measures>
-                                <viz.data:MeasureDefinition
-                                    name="Days"
-                                    value="{value}"
-                                />
-                            </viz.data:measures>
-                        </viz.data:FlattenedDataset>
-                    </viz:dataset>
-                    <viz:feeds>
-                        <viz.feeds:FeedItem
-                            uid="valueAxis"
-                            type="Measure"
-                            values="Days"
-                        />
-                        <viz.feeds:FeedItem
-                            uid="categoryAxis"
-                            type="Dimension"
-                            values="Category"
-                        />
-                    </viz:feeds>
-                </viz:VizFrame>
-                <HBox
-                    justifyContent="Center"
-                    class="sapUiSmallMargin"
-                >
-                    <items>
-                        <ObjectStatus
-                            title="Total WFH"
-                            text="{/summary/wfhTotal}"
-                            state="Success"
-                            class="sapUiMediumMarginEnd"
-                        />
-                        <ObjectStatus
-                            title="Total WFO"
-                            text="{/summary/wfoTotal}"
-                            state="Error"
-                        />
-                    </items>
-                </HBox>
+                    <Title
+                        text="Remaining Days Forecast"
+                        titleStyle="H4"
+                        textAlign="Center"
+                        width="100%"
+                        class="sapUiMediumMarginTopBottom"
+                    />
+
+                    <viz:VizFrame
+                        id="idVizFrame"
+                        uiConfig="{applicationSet:'fiori'}"
+                        height="300px"
+                        width="100%"
+                        vizType="column"
+                    >
+                        <viz:dataset>
+                            <viz.data:FlattenedDataset data="{/chartData}">
+                                <viz.data:dimensions>
+                                    <viz.data:DimensionDefinition
+                                        name="Category"
+                                        value="{category}"
+                                    />
+                                </viz.data:dimensions>
+                                <viz.data:measures>
+                                    <viz.data:MeasureDefinition
+                                        name="Days"
+                                        value="{value}"
+                                    />
+                                </viz.data:measures>
+                            </viz.data:FlattenedDataset>
+                        </viz:dataset>
+                        <viz:feeds>
+                            <viz.feeds:FeedItem
+                                uid="valueAxis"
+                                type="Measure"
+                                values="Days"
+                            />
+                            <viz.feeds:FeedItem
+                                uid="categoryAxis"
+                                type="Dimension"
+                                values="Category"
+                            />
+                        </viz:feeds>
+                    </viz:VizFrame>
+
+                    <HBox
+                        justifyContent="SpaceAround"
+                        class="sapUiMediumMarginTopBottom"
+                        width="100%"
+                    >
+                        <items>
+                            <ObjectStatus
+                                title="WFH"
+                                text="{/summary/wfhTotal}"
+                                state="Success"
+                            />
+                            <ObjectStatus
+                                title="WFO"
+                                text="{/summary/wfoTotal}"
+                                state="Error"
+                            />
+                        </items>
+                    </HBox>
+                </VBox>
             </content>
+
             <dependents>
                 <Popover
                     id="statusPopover"
