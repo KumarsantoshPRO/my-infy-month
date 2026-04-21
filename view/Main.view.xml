@@ -35,6 +35,7 @@
                     tooltip="Reset to Default"
                     type="Transparent"
                     press="onReset"
+                    visible="false"
                 />
             </headerContent>
 
