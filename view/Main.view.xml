@@ -147,7 +147,7 @@
                         <items>
                             <GenericTile
                                 header="WFH Days"
-                                frameType="Auto"
+                                frameType="OneByHalf"
                                 press="onWFHPress"
                                 class="sapUiTinyMargin"
                             >
@@ -165,7 +165,7 @@
 
                             <GenericTile
                                 header="WFO Days"
-                                frameType="Auto"
+                                frameType="OneByHalf"
                                 press="onWFOPress"
                                 class="sapUiTinyMargin"
                             >
