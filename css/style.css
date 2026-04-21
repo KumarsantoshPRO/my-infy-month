@@ -1,1 +1,16 @@
-/* Enter your custom styles here */
+/* WFO - Type02 (Red) */
+.sapUiCalItemType02 > .sapUiCalItemText, 
+.sapUiCalItemType02.sapUiCalItemSel > .sapUiCalItemText {
+    box-shadow: inset 0 -0.25rem 0 0 #ff4d4d !important; /* Adjust HEX to match chart */
+}
+
+/* WFH - Type08 (Green) */
+.sapUiCalItemType08 > .sapUiCalItemText,
+.sapUiCalItemType08.sapUiCalItemSel > .sapUiCalItemText {
+    box-shadow: inset 0 -0.25rem 0 0 #4caf50 !important; /* Adjust HEX to match chart */
+}
+
+/* Weekend - Type04 (Orange/Yellow) */
+.sapUiCalItemType04 > .sapUiCalItemText {
+    box-shadow: inset 0 -0.25rem 0 0 #ff9800 !important;
+}

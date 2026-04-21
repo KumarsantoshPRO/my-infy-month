@@ -120,7 +120,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/model/json/JSONModel", "sap
           else {
             if (dayOfWeek === 0 || dayOfWeek === 6) {
               status = "Weekend";
-              type = "Type04";
+              type = "Type14";
             } else if (aWorkDayKeys.includes(dayOfWeek.toString())) {
               status = "WFO";
               type = "Type02";
@@ -302,12 +302,20 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/model/json/JSONModel", "sap
           },
           dataPointStyle: {
             "rules": [{
+              "displayName": "Workdays",
+              "dataContext": {
+                "Category": "Workdays"
+              },
+              "properties": {
+                "color": "#fafaf5"
+              }
+            }, {
               "displayName": "WFH",
               "dataContext": {
                 "Category": "WFH"
               },
               "properties": {
-                "color": "#2B7D2B"
+                "color": "#73f073"
               }
             }, {
               "displayName": "WFO",
@@ -315,7 +323,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/model/json/JSONModel", "sap
                 "Category": "WFO"
               },
               "properties": {
-                "color": "#BB0000"
+                "color": "#d98d41"
               }
             }, {
               "displayName": "Leave",
@@ -323,27 +331,33 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/model/json/JSONModel", "sap
                 "Category": "Leave"
               },
               "properties": {
-                "color": "#1950e6"
-              }
-            }, {
-              "displayName": "Workdays",
-              "dataContext": {
-                "Category": "Workdays"
-              },
-              "properties": {
-                "color": "#E9B600"
+                "color": "#5995f0"
               }
             }]
           }
         },
         title: {
-          visible: false
+          visible: true,
+          text: "Remaining Days Forecast"
         },
         valueAxis: {
           title: {
             visible: true,
             text: "Days"
           }
+        },
+        CategoryAxis: {
+          title: {
+            visible: true,
+            text: "category"
+          },
+          label: {
+            visible: true
+          }
+        },
+        legend: {
+          visible: true,
+          placement: "bottom"
         }
       });
     },

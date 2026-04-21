@@ -31,6 +31,7 @@
                 </MultiComboBox>
                 <Button
                     icon="sap-icon://reset"
+                    iconDensityAware="true"
                     tooltip="Reset to Default"
                     type="Transparent"
                     press="onReset"
@@ -38,9 +39,14 @@
             </headerContent>
 
             <content>
-                <VBox width="100%" alignItems="Stretch">
-                    
-                    <Toolbar style="Clear" class="sapUiTinyMarginBottom">
+                <VBox
+                    width="100%"
+                    alignItems="Stretch"
+                >
+                    <Toolbar
+                        style="Clear"
+                        class="sapUiTinyMarginBottom"
+                    >
                         <Title text="WFH Bucket:" />
                         <Input
                             id="wfhBucketInput"
@@ -65,7 +71,10 @@
                         </Select>
                     </Toolbar>
 
-                    <VBox width="100%" class="sapUiNoContentPadding">
+                    <VBox
+                        width="100%"
+                        class="sapUiNoContentPadding"
+                    >
                         <u:Calendar
                             id="workCalendar"
                             width="100%"
@@ -84,19 +93,19 @@
                             </u:specialDates>
                         </u:Calendar>
                     </VBox>
-
+                    <!-- 
                     <Title
                         text="Remaining Days Forecast"
                         titleStyle="H4"
                         textAlign="Center"
                         width="100%"
                         class="sapUiMediumMarginTopBottom"
-                    />
+                    /> -->
 
                     <viz:VizFrame
                         id="idVizFrame"
                         uiConfig="{applicationSet:'fiori'}"
-                        height="200px"
+                        height="300px"
                         width="100%"
                         vizType="column"
                     >
@@ -136,16 +145,41 @@
                         width="100%"
                     >
                         <items>
-                            <ObjectStatus
-                                title="WFH"
-                                text="{/summary/wfhTotal}"
-                                state="Success"
-                            />
-                            <ObjectStatus
-                                title="WFO"
-                                text="{/summary/wfoTotal}"
-                                state="Error"
-                            />
+                            <GenericTile
+                                header="WFH Days"
+                                frameType="Auto"
+                                press="onWFHPress"
+                                class="sapUiTinyMargin"
+                            >
+                                <tileContent>
+                                    <TileContent footer="Current Month">
+                                        <NumericContent
+                                            value="{/summary/wfhTotal}"
+                                            valueColor="Good"
+                                            indicator="None"
+                                            icon="sap-icon://home"
+                                        />
+                                    </TileContent>
+                                </tileContent>
+                            </GenericTile>
+
+                            <GenericTile
+                                header="WFO Days"
+                                frameType="Auto"
+                                press="onWFOPress"
+                                class="sapUiTinyMargin"
+                            >
+                                <tileContent>
+                                    <TileContent footer="Current Month">
+                                        <NumericContent
+                                            value="{/summary/wfoTotal}"
+                                            valueColor="Critical"
+                                            indicator="None"
+                                            icon="sap-icon://building"
+                                        />
+                                    </TileContent>
+                                </tileContent>
+                            </GenericTile>
                         </items>
                     </HBox>
                 </VBox>

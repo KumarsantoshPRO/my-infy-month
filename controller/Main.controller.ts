@@ -9,6 +9,7 @@ import MultiComboBox from "sap/m/MultiComboBox";
 import Popover from "sap/m/Popover";
 import { ValueState } from "sap/ui/core/library";
 import Input from "sap/m/Input";
+import CategoryAxis from "sap/makit/CategoryAxis";
 
 /**
  * @namespace com.infosys.mymonth.controller
@@ -122,7 +123,7 @@ export default class Main extends Controller {
                 // PRIORITY 2: Default logic for weekends and workdays
                 else {
                     if (dayOfWeek === 0 || dayOfWeek === 6) {
-                        status = "Weekend"; type = "Type04";
+                        status = "Weekend"; type = "Type14";
                     } else if (aWorkDayKeys.includes(dayOfWeek.toString())) {
                         status = "WFO"; type = "Type02";
                     } else {
@@ -307,15 +308,26 @@ export default class Main extends Controller {
                 dataLabel: { visible: true },
                 dataPointStyle: {
                     "rules": [
-                        { "displayName": "WFH", "dataContext": { "Category": "WFH" }, "properties": { "color": "#2B7D2B" } },
-                        { "displayName": "WFO", "dataContext": { "Category": "WFO" }, "properties": { "color": "#BB0000" } },
-                        { "displayName": "Leave", "dataContext": { "Category": "Leave" }, "properties": { "color": "#1950e6" } },
-                        { "displayName": "Workdays", "dataContext": { "Category": "Workdays" }, "properties": { "color": "#E9B600" } }
+                        { "displayName": "Workdays", "dataContext": { "Category": "Workdays" }, "properties": { "color": "#fafaf5" } },
+                        { "displayName": "WFH", "dataContext": { "Category": "WFH" }, "properties": { "color": "#73f073" } },
+                        { "displayName": "WFO", "dataContext": { "Category": "WFO" }, "properties": { "color": "#d98d41" } },
+                        { "displayName": "Leave", "dataContext": { "Category": "Leave" }, "properties": { "color": "#5995f0" } }
+                        
                     ]
                 }
             },
-            title: { visible: false },
-            valueAxis: { title: { visible: true, text: "Days" } }
+            title: { visible: true, text: "Remaining Days Forecast" },
+            valueAxis: { title: { visible: true, text: "Days" } },
+            CategoryAxis: {
+                title: { visible: true, text: "category" },
+                label: {
+                    visible: true
+                }
+            },
+            legend: {
+                visible: true,
+                placement: "bottom"
+            }
         });
     }
 
