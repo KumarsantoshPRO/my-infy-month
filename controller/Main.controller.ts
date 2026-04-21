@@ -312,7 +312,7 @@ export default class Main extends Controller {
                         { "displayName": "WFH", "dataContext": { "Category": "WFH" }, "properties": { "color": "#73f073" } },
                         { "displayName": "WFO", "dataContext": { "Category": "WFO" }, "properties": { "color": "#d98d41" } },
                         { "displayName": "Leave", "dataContext": { "Category": "Leave" }, "properties": { "color": "#5995f0" } }
-                        
+
                     ]
                 }
             },
@@ -326,7 +326,14 @@ export default class Main extends Controller {
             },
             legend: {
                 visible: true,
-                placement: "bottom"
+                isScrollable: false,
+                alignment: "center",
+                type: "common"
+            },
+            legendGroup: {
+                layout: {
+                    position: "right"
+                }
             }
         });
     }

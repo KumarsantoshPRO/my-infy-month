@@ -357,7 +357,14 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/model/json/JSONModel", "sap
         },
         legend: {
           visible: true,
-          placement: "bottom"
+          isScrollable: false,
+          alignment: "center",
+          type: "common"
+        },
+        legendGroup: {
+          layout: {
+            position: "right"
+          }
         }
       });
     },
