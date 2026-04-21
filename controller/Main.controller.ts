@@ -332,7 +332,7 @@ export default class Main extends Controller {
             },
             legendGroup: {
                 layout: {
-                    position: "right"
+                    position: "bottom"
                 }
             }
         });
