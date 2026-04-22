@@ -404,6 +404,7 @@ export default class Main extends Controller {
     }
 
     public handleDaySelect(oEvent: Event): void {
+        (this.getView()?.byId("statusPopover") as Popover).close();
         const oCalendar = oEvent.getSource() as Calendar;
         const aSelectedDates = oCalendar.getSelectedDates();
         if (aSelectedDates.length > 0) {
@@ -416,8 +417,6 @@ export default class Main extends Controller {
     public OnSettings(oEvent: Event): void {
         const oButton = oEvent.getSource() as any;
         (this.getView()?.byId("settings") as Popover).openBy(oButton);
-
-
     }
 
     public handleMonthChange(oEvent: any): void {

@@ -425,6 +425,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/model/json/JSONModel", "sap
       oMultiCombo?.setSelectedKeys(sSavedDays ? JSON.parse(sSavedDays) : []);
     },
     handleDaySelect: function _handleDaySelect(oEvent) {
+      (this.getView()?.byId("statusPopover")).close();
       const oCalendar = oEvent.getSource();
       const aSelectedDates = oCalendar.getSelectedDates();
       if (aSelectedDates.length > 0) {
