@@ -192,25 +192,33 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/model/json/JSONModel", "sap
       const iMonth = oViewDate.getMonth();
       const iYear = oViewDate.getFullYear();
 
-      // Filter days only for the currently visible month
-      const monthDays = aDays.filter(d => {
+      // Get the current date and set time to 0 to compare dates only
+      const oToday = new Date();
+      oToday.setHours(0, 0, 0, 0);
+
+      // 1. Filter for currently visible month AND only future dates (Remaining days)
+      const remainingMonthDays = aDays.filter(d => {
         const dDate = d.date instanceof Date ? d.date : new Date(d.date);
-        return dDate.getMonth() === iMonth && dDate.getFullYear() === iYear;
+        const isSameMonth = dDate.getMonth() === iMonth && dDate.getFullYear() === iYear;
+        // Check if the date is today or in the future
+        const isRemaining = dDate.getTime() >= oToday.getTime();
+        return isSameMonth && isRemaining;
       });
 
-      // Calculate totals
-      const wfh = monthDays.filter(d => d.status === "WFH").length;
-      const wfo = monthDays.filter(d => d.status === "WFO").length;
-      const leaves = monthDays.filter(d => d.status === "Leave").length;
+      // 2. Use the 'remainingMonthDays' variable for your calculations
+      const wfh = remainingMonthDays.filter(d => d.status === "WFH").length;
+      const wfo = remainingMonthDays.filter(d => d.status === "WFO").length;
+      const leaves = remainingMonthDays.filter(d => d.status === "Leave").length;
+      const holiday = remainingMonthDays.filter(d => d.status === "Holiday").length;
 
-      // 1. Update the Summary Data (For the text labels)
+      // Update the Summary Data
       oModel.setProperty("/summary", {
         wfhTotal: wfh,
         wfoTotal: wfo,
         leaveTotal: leaves
       });
 
-      // 2. Update the VizFrame Data (For the chart)
+      // Update the VizFrame Data
       oModel.setProperty("/chartData", [{
         category: "Workdays",
         value: wfh + wfo
@@ -224,7 +232,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/model/json/JSONModel", "sap
         category: "Leave",
         value: leaves
       }]);
-      this._validateWfhBucket(wfh + leaves);
+      this._validateWfhBucket(wfh - (leaves + holiday));
     },
     _validateWfhBucket: function _validateWfhBucket(iCurrentWfh) {
       const oModel = this.getView()?.getModel();
