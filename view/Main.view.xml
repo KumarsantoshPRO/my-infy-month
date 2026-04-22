@@ -13,7 +13,7 @@
     <App id="app">
         <Page
             id="pageId"
-            title="My Month"
+            title="{i18n>title}"
             titleAlignment="Center"
             enableScrolling="true"
             class="sapUiContentPadding"
@@ -101,6 +101,7 @@
                                             valueColor="Good"
                                             indicator="None"
                                             icon="sap-icon://home"
+                                            animateTextChange="true"
                                         />
                                     </TileContent>
                                 </tileContent>
@@ -119,6 +120,7 @@
                                             valueColor="Critical"
                                             indicator="None"
                                             icon="sap-icon://building"
+                                            animateTextChange="true"
                                         />
                                     </TileContent>
                                 </tileContent>
