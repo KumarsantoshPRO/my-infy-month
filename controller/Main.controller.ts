@@ -317,7 +317,7 @@ export default class Main extends Controller {
         oModel.setProperty("/days", oNewData.days);
         localStorage.setItem(this.DATA_STORAGE_KEY, JSON.stringify(oModel.getData()));
         this._updateChartData();
-        (this.getView()?.byId("settings") as Popover).close();
+        // (this.getView()?.byId("settings") as Popover).close();
     }
 
     public onReset(): void {

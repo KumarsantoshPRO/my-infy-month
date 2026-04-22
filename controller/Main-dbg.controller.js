@@ -304,7 +304,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/model/json/JSONModel", "sap
       oModel.setProperty("/days", oNewData.days);
       localStorage.setItem(this.DATA_STORAGE_KEY, JSON.stringify(oModel.getData()));
       this._updateChartData();
-      (this.getView()?.byId("settings")).close();
+      // (this.getView()?.byId("settings") as Popover).close();
     },
     onReset: function _onReset() {
       MessageBox.confirm("Reset all manual changes (Leaves/Holidays) as well?", {
