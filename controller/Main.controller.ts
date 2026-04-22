@@ -170,7 +170,7 @@ export default class Main extends Controller {
         oModel.setProperty("/calendarStartDate", oNewDate);
 
         this._refreshActiveMonthData();
-        (this.getView()?.byId("settings") as Popover).close();
+        // (this.getView()?.byId("settings") as Popover).close();
 
     }
 
@@ -193,7 +193,7 @@ export default class Main extends Controller {
             this._updateChartData();
 
         }
-        (this.getView()?.byId("settings") as Popover).close();
+
     }
 
     private _updateChartData(): void {

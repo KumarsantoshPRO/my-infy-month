@@ -165,7 +165,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/model/json/JSONModel", "sap
       const oModel = this.getView()?.getModel();
       oModel.setProperty("/calendarStartDate", oNewDate);
       this._refreshActiveMonthData();
-      (this.getView()?.byId("settings")).close();
+      // (this.getView()?.byId("settings") as Popover).close();
     },
     onWfhBucketChange: function _onWfhBucketChange(oEvent) {
       const sValue = oEvent.getParameter("value");
@@ -183,7 +183,6 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/model/json/JSONModel", "sap
         localStorage.setItem(this.BUCKET_MAP_KEY, JSON.stringify(oMap));
         this._updateChartData();
       }
-      (this.getView()?.byId("settings")).close();
     },
     _updateChartData: function _updateChartData() {
       const oModel = this.getView()?.getModel();
