@@ -103,7 +103,7 @@ export default class Main extends Controller {
         const baseDate = new Date();
         const daysArray = [];
         const sSavedKeys = localStorage.getItem(this.DAYS_STORAGE_KEY);
-        const aWorkDayKeys = sSavedKeys ? JSON.parse(sSavedKeys) : ["3", "4"];
+        const aWorkDayKeys = sSavedKeys ? JSON.parse(sSavedKeys) : [];
         // Get Manual Overrides (Leave, Holiday, etc.)
         const sSavedOverrides = localStorage.getItem(this.OVERRIDES_KEY);
         const oOverrides = sSavedOverrides ? JSON.parse(sSavedOverrides) : {};
