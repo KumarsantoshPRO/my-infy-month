@@ -323,6 +323,9 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/model/json/JSONModel", "sap
         }
       });
     },
+    onOkPress: function _onOkPress() {
+      (this.getView()?.byId("settings")).close();
+    },
     _vizSetup: function _vizSetup() {
       const oVizFrame = this.getView()?.byId("idVizFrame");
       oVizFrame?.setVizProperties({

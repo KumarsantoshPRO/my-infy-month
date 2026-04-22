@@ -337,7 +337,9 @@ export default class Main extends Controller {
             }
         });
     }
-
+    public onOkPress(): void {
+        (this.getView()?.byId("settings") as Popover).close();
+    }
 
     private _vizSetup(): void {
         const oVizFrame = this.getView()?.byId("idVizFrame") as VizFrame;

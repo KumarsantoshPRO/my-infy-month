@@ -19,19 +19,6 @@
             class="sapUiContentPadding"
         >
             <headerContent>
-                <!-- <MultiComboBox
-                    id="daysSelector"
-                    items="{path: '/configDays'}"
-                    selectionChange=".onSelectionChange"
-                    placeholder="Days"
-                    width="120px"
-                >
-                    <core:Item
-                        key="{key}"
-                        text="{text}"
-                    />
-                </MultiComboBox> -->
-
                 <Button
                     icon="sap-icon://action-settings"
                     iconDensityAware="true"
@@ -46,34 +33,7 @@
                     width="100%"
                     alignItems="Stretch"
                 >
-                    <!-- <Toolbar
-                        style="Clear"
-                        class="sapUiTinyMarginBottom"
-                    >
-                        <Title text="WFH Bucket:" />
-                        <Input
-                            id="wfhBucketInput"
-                            value="{/currentWfhBucket}"
-                            type="Number"
-                            width="70px"
-                            placeholder="Qty"
-                            liveChange=".onWfhBucketChange"
-                        />
-                        <ToolbarSpacer />
-                        <Select
-                            id="monthSelector"
-                            items="{/availableMonths}"
-                            change=".onMonthChange"
-                            selectedKey="{/selectedMonthKey}"
-                            width="110px"
-                        >
-                            <core:Item
-                                key="{key}"
-                                text="{text}"
-                            />
-                        </Select>
-                    </Toolbar> -->
-
+                    <!-- Calendar -->
                     <VBox
                         width="100%"
                         class="sapUiNoContentPadding"
@@ -96,52 +56,8 @@
                             </u:specialDates>
                         </u:Calendar>
                     </VBox>
-                    <!-- 
-                    <Title
-                        text="Remaining Days Forecast"
-                        titleStyle="H4"
-                        textAlign="Center"
-                        width="100%"
-                        class="sapUiMediumMarginTopBottom"
-                    /> -->
 
-                    <viz:VizFrame
-                        id="idVizFrame"
-                        uiConfig="{applicationSet:'fiori'}"
-                        height="250px"
-                        width="100%"
-                        vizType="column"
-                    >
-                        <viz:dataset>
-                            <viz.data:FlattenedDataset data="{/chartData}">
-                                <viz.data:dimensions>
-                                    <viz.data:DimensionDefinition
-                                        name="Category"
-                                        value="{category}"
-                                    />
-                                </viz.data:dimensions>
-                                <viz.data:measures>
-                                    <viz.data:MeasureDefinition
-                                        name="Days"
-                                        value="{value}"
-                                    />
-                                </viz.data:measures>
-                            </viz.data:FlattenedDataset>
-                        </viz:dataset>
-                        <viz:feeds>
-                            <viz.feeds:FeedItem
-                                uid="valueAxis"
-                                type="Measure"
-                                values="Days"
-                            />
-                            <viz.feeds:FeedItem
-                                uid="categoryAxis"
-                                type="Dimension"
-                                values="Category"
-                            />
-                        </viz:feeds>
-                    </viz:VizFrame>
-
+                    <!-- Tiles -->
                     <HBox
                         justifyContent="SpaceAround"
                         class="sapUiNoMarginTopBottom"
@@ -201,6 +117,44 @@
                             </GenericTile>
                         </items>
                     </HBox>
+
+                    <!-- Chart -->
+                    <viz:VizFrame
+                        id="idVizFrame"
+                        uiConfig="{applicationSet:'fiori'}"
+                        height="250px"
+                        width="100%"
+                        vizType="column"
+                    >
+                        <viz:dataset>
+                            <viz.data:FlattenedDataset data="{/chartData}">
+                                <viz.data:dimensions>
+                                    <viz.data:DimensionDefinition
+                                        name="Category"
+                                        value="{category}"
+                                    />
+                                </viz.data:dimensions>
+                                <viz.data:measures>
+                                    <viz.data:MeasureDefinition
+                                        name="Days"
+                                        value="{value}"
+                                    />
+                                </viz.data:measures>
+                            </viz.data:FlattenedDataset>
+                        </viz:dataset>
+                        <viz:feeds>
+                            <viz.feeds:FeedItem
+                                uid="valueAxis"
+                                type="Measure"
+                                values="Days"
+                            />
+                            <viz.feeds:FeedItem
+                                uid="categoryAxis"
+                                type="Dimension"
+                                values="Category"
+                            />
+                        </viz:feeds>
+                    </viz:VizFrame>
                 </VBox>
             </content>
 
@@ -289,12 +243,22 @@
                             </MultiComboBox>
                             <Label />
                             <Button
+                                text="Close"
+                                icon="sap-icon://submit"
+                                iconDensityAware="true"
+                                tooltip="Reset to Default"
+                                type="Transparent"
+                                press="onOkPress"
+                            />
+                            <Label visible="false" />
+                            <Button
                                 text="Reset"
                                 icon="sap-icon://reset"
                                 iconDensityAware="true"
                                 tooltip="Reset to Default"
                                 type="Critical"
                                 press="onReset"
+                                visible="false"
                             />
                         </form:SimpleForm>
                     </content>
