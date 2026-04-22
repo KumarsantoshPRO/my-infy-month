@@ -155,6 +155,15 @@
                             />
                         </viz:feeds>
                     </viz:VizFrame>
+
+                    <MessageStrip
+                        text="{/message/messageStripText}"
+                        type="{/message/type}"
+                        visible="{/message/visible}"
+                        showIcon="true"
+                        showCloseButton="true"
+                        class="sapUiMediumMarginBottom"
+                    />
                 </VBox>
             </content>
 

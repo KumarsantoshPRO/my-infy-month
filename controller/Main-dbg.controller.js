@@ -1,4 +1,4 @@
-sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/model/json/JSONModel", "sap/m/MessageBox", "sap/m/MessageToast", "sap/ui/core/library"], function (Controller, JSONModel, MessageBox, MessageToast, sap_ui_core_library) {
+sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/model/json/JSONModel", "sap/m/MessageBox", "sap/ui/core/library"], function (Controller, JSONModel, MessageBox, sap_ui_core_library) {
   "use strict";
 
   const ValueState = sap_ui_core_library["ValueState"];
@@ -76,6 +76,8 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/model/json/JSONModel", "sap
       // Add restriction dates to the model
       oData.minCalendarDate = minDate;
       oData.maxCalendarDate = maxDate;
+      oData.messageStripText = "";
+      oData.type = "None";
       return oData;
     },
     _generateMonthList: function _generateMonthList() {
@@ -254,16 +256,32 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/model/json/JSONModel", "sap
       const oModel = this.getView()?.getModel();
       const sBucket = oModel.getProperty("/currentWfhBucket");
       const oInput = this.getView()?.byId("wfhBucketInput");
+      let message = "";
       if (sBucket && parseInt(sBucket) < iCurrentWfh) {
         oInput.setValueState(ValueState.Error);
-        oInput.setValueStateText(`Planned WFH:${iCurrentWfh} exceeding the WFH Bucket:${sBucket}`);
-        MessageToast.show(`Planned WFH:${iCurrentWfh} exceeding the WFH Bucket:${sBucket}`);
+        message = `WFH Over-Utilized:${iCurrentWfh}/${sBucket}`;
+        oInput.setValueStateText(message);
+        oModel.setProperty("/message", {
+          messageStripText: message,
+          type: 'Error',
+          visible: true
+        });
       } else if (sBucket && parseInt(sBucket) > iCurrentWfh) {
         oInput.setValueState(ValueState.Warning);
-        oInput.setValueStateText(`Planned WFH:${iCurrentWfh} Not reached limit of WFH Bucket:${sBucket}`);
-        MessageToast.show(`Planned WFH:${iCurrentWfh} Not reached limit of WFH Bucket:${sBucket}`);
+        message = `WFH Under-Utilized:${iCurrentWfh}/${sBucket}`;
+        oInput.setValueStateText(message);
+        oModel.setProperty("/message", {
+          messageStripText: message,
+          type: 'Information',
+          visible: true
+        });
       } else {
         oInput.setValueState(ValueState.None);
+        oModel.setProperty("/message", {
+          messageStripText: message,
+          type: 'None',
+          visible: false
+        });
       }
     },
     onStatusChange: function _onStatusChange(oEvent) {

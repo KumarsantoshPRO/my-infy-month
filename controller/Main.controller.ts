@@ -81,7 +81,8 @@ export default class Main extends Controller {
         // Add restriction dates to the model
         oData.minCalendarDate = minDate;
         oData.maxCalendarDate = maxDate;
-
+        oData.messageStripText = "";
+        oData.type = "None";
 
 
         return oData;
@@ -263,18 +264,36 @@ export default class Main extends Controller {
         const oModel = this.getView()?.getModel() as JSONModel;
         const sBucket = oModel.getProperty("/currentWfhBucket");
         const oInput = this.getView()?.byId("wfhBucketInput") as Input;
-
+        let message = "";
         if (sBucket && parseInt(sBucket) < iCurrentWfh) {
             oInput.setValueState(ValueState.Error);
-            oInput.setValueStateText(`Planned WFH:${iCurrentWfh} exceeding the WFH Bucket:${sBucket}`);
-            MessageToast.show(`Planned WFH:${iCurrentWfh} exceeding the WFH Bucket:${sBucket}`);
+            message = `WFH Over-Utilized:${iCurrentWfh}/${sBucket}`;
+            oInput.setValueStateText(message);
+
+            oModel.setProperty("/message", {
+                messageStripText: message,
+                type: 'Error',
+                visible: true
+            });
+
         } else if (sBucket && parseInt(sBucket) > iCurrentWfh) {
             oInput.setValueState(ValueState.Warning);
-            oInput.setValueStateText(`Planned WFH:${iCurrentWfh} Not reached limit of WFH Bucket:${sBucket}`);
-            MessageToast.show(`Planned WFH:${iCurrentWfh} Not reached limit of WFH Bucket:${sBucket}`);
+            message = `WFH Under-Utilized:${iCurrentWfh}/${sBucket}`;
+            oInput.setValueStateText(message);
+            oModel.setProperty("/message", {
+                messageStripText: message,
+                type: 'Information',
+                visible: true
+            });
+
         }
         else {
             oInput.setValueState(ValueState.None);
+            oModel.setProperty("/message", {
+                messageStripText: message,
+                type: 'None',
+                visible: false
+            });
         }
     }
 
