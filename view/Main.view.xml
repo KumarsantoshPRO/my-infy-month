@@ -1,4 +1,5 @@
 <mvc:View
+    xmlns:form="sap.ui.layout.form"
     controllerName="com.infosys.mymonth.controller.Main"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
@@ -11,13 +12,14 @@
 >
     <App id="app">
         <Page
+            id="pageId"
             title="My Month"
             titleAlignment="Center"
             enableScrolling="true"
             class="sapUiContentPadding"
         >
             <headerContent>
-                <MultiComboBox
+                <!-- <MultiComboBox
                     id="daysSelector"
                     items="{path: '/configDays'}"
                     selectionChange=".onSelectionChange"
@@ -28,14 +30,14 @@
                         key="{key}"
                         text="{text}"
                     />
-                </MultiComboBox>
+                </MultiComboBox> -->
+
                 <Button
-                    icon="sap-icon://reset"
+                    icon="sap-icon://action-settings"
                     iconDensityAware="true"
-                    tooltip="Reset to Default"
+                    tooltip="Settings"
                     type="Transparent"
-                    press="onReset"
-                    visible="false"
+                    press="OnSettings"
                 />
             </headerContent>
 
@@ -44,7 +46,7 @@
                     width="100%"
                     alignItems="Stretch"
                 >
-                    <Toolbar
+                    <!-- <Toolbar
                         style="Clear"
                         class="sapUiTinyMarginBottom"
                     >
@@ -70,7 +72,7 @@
                                 text="{text}"
                             />
                         </Select>
-                    </Toolbar>
+                    </Toolbar> -->
 
                     <VBox
                         width="100%"
@@ -142,13 +144,29 @@
 
                     <HBox
                         justifyContent="SpaceAround"
-                        class="sapUiMediumMarginTopBottom"
-                        width="100%"
+                        class="sapUiNoMarginTopBottom"
+                        height="90%"
                     >
                         <items>
+                            <!-- <GenericTile
+                                header="Workdays"
+                                frameType="Auto"
+                                press="._resetCalendar"
+                                class="sapUiTinyMargin"
+                            >
+                                <tileContent>
+                                    <TileContent footer="Current Month">
+                                        <NumericContent
+                                            value="{/summary/workdays}"
+                                            valueColor="Neutral"
+                                            indicator="None"
+                                        />
+                                    </TileContent>
+                                </tileContent>
+                            </GenericTile> -->
                             <GenericTile
                                 header="WFH Days"
-                                frameType="OneByHalf"
+                                frameType="Auto"
                                 press="onWFHPress"
                                 class="sapUiTinyMargin"
                             >
@@ -166,7 +184,7 @@
 
                             <GenericTile
                                 header="WFO Days"
-                                frameType="OneByHalf"
+                                frameType="Auto"
                                 press="onWFOPress"
                                 class="sapUiTinyMargin"
                             >
@@ -219,6 +237,66 @@
                                 icon="sap-icon://umbrella"
                             />
                         </List>
+                    </content>
+                </Popover>
+
+                <Popover
+                    id="settings"
+                    title="Custom Settings"
+                    placement="Auto"
+                >
+                    <content>
+                        <form:SimpleForm
+                            editable="true"
+                            layout="ColumnLayout"
+                        >
+                            <Label text="WFH Bucket:" />
+                            <Select
+                                id="monthSelector"
+                                items="{/availableMonths}"
+                                change=".onMonthChange"
+                                selectedKey="{/selectedMonthKey}"
+                                width="110px"
+                                class="sapUiTinyMarginEnd"
+                            >
+                                <core:Item
+                                    key="{key}"
+                                    text="{text}"
+                                />
+                            </Select>
+
+                            <Input
+                                id="wfhBucketInput"
+                                value="{/currentWfhBucket}"
+                                type="Number"
+                                width="70px"
+                                placeholder="Qty"
+                                liveChange=".onWfhBucketChange"
+                            />
+
+                            <Label text="Select Prefered WFO" />
+                            <MultiComboBox
+                                id="daysSelector"
+                                items="{path: '/configDays'}"
+                                selectionChange=".onSelectionChange"
+                                placeholder="Days"
+                                width="120px"
+                            >
+                                <core:Item
+                                    key="{key}"
+                                    text="{text}"
+                                />
+                            </MultiComboBox>
+                            <Label />
+                            <Button
+                                text="Reset"
+                                icon="sap-icon://reset"
+                                iconDensityAware="true"
+                                tooltip="Reset to Default"
+                                type="Critical"
+                                press="onReset"
+                            />
+                        </form:SimpleForm>
                     </content>
                 </Popover>
             </dependents>
