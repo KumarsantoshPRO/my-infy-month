@@ -56,7 +56,15 @@
                             </u:specialDates>
                         </u:Calendar>
                     </VBox>
-
+                    <!-- Messages -->
+                    <MessageStrip
+                        text="{/message/messageStripText}"
+                        type="{/message/type}"
+                        visible="{/message/visible}"
+                        showIcon="true"
+                        showCloseButton="true"
+                        class="sapUiMediumMarginBottom"
+                    />
                     <!-- Tiles -->
                     <HBox
                         justifyContent="SpaceAround"
@@ -82,7 +90,7 @@
                             </GenericTile> -->
                             <GenericTile
                                 header="WFH Days"
-                                frameType="Auto"
+                                frameType="OneByHalf"
                                 press="onWFHPress"
                                 class="sapUiTinyMargin"
                             >
@@ -100,7 +108,7 @@
 
                             <GenericTile
                                 header="WFO Days"
-                                frameType="Auto"
+                                frameType="OneByHalf"
                                 press="onWFOPress"
                                 class="sapUiTinyMargin"
                             >
@@ -155,15 +163,6 @@
                             />
                         </viz:feeds>
                     </viz:VizFrame>
-
-                    <MessageStrip
-                        text="{/message/messageStripText}"
-                        type="{/message/type}"
-                        visible="{/message/visible}"
-                        showIcon="true"
-                        showCloseButton="true"
-                        class="sapUiMediumMarginBottom"
-                    />
                 </VBox>
             </content>
 
