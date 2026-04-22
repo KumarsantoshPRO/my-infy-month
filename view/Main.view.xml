@@ -250,7 +250,7 @@
                             editable="true"
                             layout="ColumnLayout"
                         >
-                            <Label text="WFH Bucket:" />
+                            <Label text="WFH Bucket" />
                             <Select
                                 id="monthSelector"
                                 items="{/availableMonths}"

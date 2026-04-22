@@ -35,7 +35,6 @@ export default class Main extends Controller {
         const oData = this._loadInitialData();
         const oModel = new JSONModel(oData);
         this.getView()?.setModel(oModel);
-
         this._initMultiComboSelection();
         this._vizSetup();
         this._refreshActiveMonthData();
@@ -364,7 +363,7 @@ export default class Main extends Controller {
                 }
             },
             legend: {
-                visible: true,
+                visible: false,
                 isScrollable: false,
                 alignment: "center",
                 type: "common"

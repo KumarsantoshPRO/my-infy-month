@@ -386,7 +386,7 @@ sap.ui.define(["sap/ui/core/mvc/Controller", "sap/ui/model/json/JSONModel", "sap
           }
         },
         legend: {
-          visible: true,
+          visible: false,
           isScrollable: false,
           alignment: "center",
           type: "common"
